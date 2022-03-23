@@ -18,6 +18,20 @@ class ilGroupUserActionProvider extends ilUserActionProvider
      */
     protected static $grp_ops = array();
 
+    protected $add_to_group_activated = false;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        include_once("./Services/User/Actions/classes/class.ilUserActionAdmin.php");
+        $this->add_to_group_activated = ilUserActionAdmin::lookupActive(
+          'awrn', 'toplist', 'grp', 'add_to'
+        );
+    }
+
     /**
      * @inheritdoc
      */
@@ -77,6 +91,10 @@ class ilGroupUserActionProvider extends ilUserActionProvider
         $this->lng->loadLanguageModule("grp");
 
         $coll = ilUserActionCollection::getInstance();
+
+        if (!$this->add_to_group_activated) {
+            return $coll;
+        }
 
         $commands = self::getCommandAccess($this->user_id);
         if (count($commands) == 0) {
