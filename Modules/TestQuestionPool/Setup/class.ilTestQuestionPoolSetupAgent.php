@@ -61,7 +61,9 @@ class ilTestQuestionPoolSetupAgent implements Agent
     public function getMigrations(): array
     {
         return [
-            new ilFixMissingQuestionDuplicationMigration()
+            new ilFixMissingQuestionDuplicationMigration(),
+            new ilRebuildMissingThumbnailImageMcAnswerMigration(),
+            new ilRebuildMissingThumbnailImageScAnswerMigration()
         ];
     }
 }
