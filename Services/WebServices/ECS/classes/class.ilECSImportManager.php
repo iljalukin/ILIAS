@@ -277,4 +277,19 @@ class ilECSImportManager
         $this->db->manipulate($query);
         return true;
     }
+
+    /**
+     * @param int $server_id
+     * @param int $mid
+     * @param string $old_econtent_id
+     * @param string $new_econtent_id
+     */
+    public function replaceEContentId(int $server_id, int $mid, int $old_econtent_id, int $new_econtent_id): void
+    {
+        $query = 'UPDATE ecs_import SET econtent_id = ' . $this->db->quote($new_econtent_id, 'text') .
+            ' WHERE econtent_id = ' . $this->db->quote($old_econtent_id, 'text') .
+            ' AND server_id = ' . $this->db->quote($server_id, 'integer') .
+            ' AND mid = ' . $this->db->quote($mid, 'integer');
+        $this->db->manipulate($query);
+    }
 }
