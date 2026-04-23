@@ -242,7 +242,7 @@ class ilECSCmsCourseMemberCommandQueueHandler implements ilECSCommandQueueHandle
                             $this->log->debug('Found parallel group with id: ' . $tmp_pgroup->id . ': for sequence number: ' . $sequence_number);
 
                             // @todo check hierarchy of roles
-                            $assigned[$tmp_pgroup->id][$member->personID] = array(
+                            $assigned[$pgroup->id][$member->personID] = array(
                                 'id' => $member->personID,
                                 'role' => $pgroup->role
                             );
