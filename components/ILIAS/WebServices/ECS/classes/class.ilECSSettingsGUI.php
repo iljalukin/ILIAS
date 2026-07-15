@@ -302,10 +302,15 @@ class ilECSSettingsGUI
         $this->form->addItem($ser);
 
         $pro = new ilSelectInputGUI($this->lng->txt('ecs_protocol'), 'protocol');
-        $pro->setOptions(array(
-            ilECSSetting::PROTOCOL_HTTPS => 'HTTPS',
-            ilECSSetting::PROTOCOL_HTTP => 'HTTP'
-        ));
+        $pro_options = (defined('DEVMODE') && DEVMODE)
+            ? [
+                ilECSSetting::PROTOCOL_HTTPS => 'HTTPS',
+                ilECSSetting::PROTOCOL_HTTP  => 'HTTP',
+            ]
+            : [
+                ilECSSetting::PROTOCOL_HTTPS => 'HTTPS',
+            ];
+        $pro->setOptions($pro_options);
         $pro->setValue($this->settings->getProtocol());
         $pro->setRequired(true);
         $this->form->addItem($pro);
